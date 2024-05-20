@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from './Components/Common/Navbar';
 import PostList from './Components/Post/PostList';
+// import { auth } from './config/firebase';
 
 const Home = () => {
   return (

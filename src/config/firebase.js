@@ -4,15 +4,13 @@ import { getAuth } from 'firebase/auth';
 import { getStorage } from 'firebase/storage';
 import { setPersistence, browserSessionPersistence } from 'firebase/auth';
 
-//Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyADVuw2EKjip-lDkLQHJDX4JOAqcl5n0JE",
-  authDomain: "instagram-app-6e29e.firebaseapp.com",
-  projectId: "instagram-app-6e29e",
-  storageBucket: "instagram-app-6e29e.appspot.com",
-  messagingSenderId: "48979812577",
-  appId: "1:48979812577:web:02312dbf386ed281e717a0",
-  measurementId: "G-473VCK6S7H"
+  apiKey: "AIzaSyBRtEEsxQYH9gpYmuBpBNKTqxe9qAOClWk",
+  authDomain: "insta-app-b9842.firebaseapp.com",
+  projectId: "insta-app-b9842",
+  storageBucket: "insta-app-b9842.appspot.com",
+  messagingSenderId: "447812028569",
+  appId: "1:447812028569:web:338efbcf489421bbc1d008"
 };
 
 // Initialize Firebase
