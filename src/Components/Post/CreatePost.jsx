@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { storage, db } from '../../config/firebase';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
-import { useAuth } from '../../contexts/AuthContext';
 import { FiUpload, FiSend } from 'react-icons/fi';
+import { useSelector } from 'react-redux';
 
 const CreatePost = () => {
   const [caption, setCaption] = useState('');
@@ -12,7 +12,7 @@ const CreatePost = () => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(''); 
   const navigate = useNavigate();
-  const { currentUser } = useAuth();
+  const {auth} = useSelector(state => state);
 
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
@@ -40,22 +40,22 @@ const CreatePost = () => {
       setError("Please enter a caption for your post.");
       return;
     }
-    if (!currentUser) {
+    if (!auth) {
       setError("No user logged in. Please log in to create a post.");
       return;
     }
 
     try {
-      const fileRef = ref(storage, `${currentUser.uid}/posts/${Date.now()}_${file.name}`);
+      const fileRef = ref(storage, `${auth.userId}/posts/${Date.now()}_${file.name}`);
       const snapshot = await uploadBytes(fileRef, file);
       const photoURL = await getDownloadURL(snapshot.ref);
 
       await addDoc(collection(db, 'posts'), {
         photoURL,
         caption,
-        userId: currentUser.uid, 
-        userName: currentUser.displayName,  
-        userProfilePic: currentUser.photoURL, 
+        userId: auth.userId, 
+        userName: auth.name,  
+        userProfilePic: auth?.photoURL ?? "none", 
         timestamp: serverTimestamp(),
         likes: 0,
         comments: 0,

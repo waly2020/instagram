@@ -1,0 +1,81 @@
+{
+  "auth": {
+    "instagrame15ce3c3e15ce3c3": {
+      "customAuth": false,
+      "dependsOn": [],
+      "frontendAuthConfig": {
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyCharacters": [],
+          "passwordPolicyMinLength": 8
+        },
+        "signupAttributes": [
+          "EMAIL",
+          "FAMILY_NAME",
+          "NAME"
+        ],
+        "socialProviders": [],
+        "usernameAttributes": [
+          "EMAIL"
+        ],
+        "verificationMechanisms": [
+          "PHONE_NUMBER"
+        ]
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito"
+    }
+  },
+  "function": {
+    "instagramfdd6d611CustomMessage": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_instagramfdd6d611CustomMessage_EMAILMESSAGE": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "instagramfdd6d611CustomMessage"
+        }
+      ]
+    },
+    "AMPLIFY_function_instagramfdd6d611CustomMessage_EMAILSUBJECT": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "instagramfdd6d611CustomMessage"
+        }
+      ]
+    },
+    "AMPLIFY_function_instagramfdd6d611CustomMessage_REDIRECTURL": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "instagramfdd6d611CustomMessage"
+        }
+      ]
+    },
+    "AMPLIFY_function_instagramfdd6d611CustomMessage_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "instagramfdd6d611CustomMessage"
+        }
+      ]
+    },
+    "AMPLIFY_function_instagramfdd6d611CustomMessage_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "instagramfdd6d611CustomMessage"
+        }
+      ]
+    }
+  }
+}

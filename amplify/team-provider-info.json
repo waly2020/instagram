@@ -1,0 +1,30 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-instagram-dev-7e6cd-authRole",
+      "UnauthRoleArn": "arn:aws:iam::471112876267:role/amplify-instagram-dev-7e6cd-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::471112876267:role/amplify-instagram-dev-7e6cd-authRole",
+      "Region": "eu-central-1",
+      "DeploymentBucketName": "amplify-instagram-dev-7e6cd-deployment",
+      "UnauthRoleName": "amplify-instagram-dev-7e6cd-unauthRole",
+      "StackName": "amplify-instagram-dev-7e6cd",
+      "StackId": "arn:aws:cloudformation:eu-central-1:471112876267:stack/amplify-instagram-dev-7e6cd/6b6c00c0-17be-11ef-9579-0686cf11be33",
+      "AmplifyAppId": "d199gdxprmnfw3",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-instagram-dev-7e6cd-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
+    },
+    "categories": {
+      "function": {
+        "instagramfdd6d611CustomMessage": {
+          "REDIRECTURL": "",
+          "EMAILSUBJECT": "",
+          "EMAILMESSAGE": "",
+          "deploymentBucketName": "amplify-instagram-dev-7e6cd-deployment",
+          "s3Key": "amplify-builds/instagramfdd6d611CustomMessage-4d33702f4a6b7a4a476c-build.zip"
+        }
+      },
+      "auth": {
+        "instagrame15ce3c3e15ce3c3": {}
+      }
+    }
+  }
+}

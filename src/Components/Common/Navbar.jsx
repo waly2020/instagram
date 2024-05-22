@@ -5,12 +5,12 @@ import CreatePost from '../Post/CreatePost';
 import AvatarUpload from '../Profile/AvatarUpload'; 
 import Modal from '../../Modal/Modal';
 import AvatarDisplay from '../Profile/AvatarDisplay'; 
-import { useAuth } from '../../contexts/AuthContext'; 
+import { useSelector } from 'react-redux';
 
 const Navbar = () => {
   const [showCreatePost, setShowCreatePost] = useState(false);
-  const [showAvatarUpload, setShowAvatarUpload] = useState(false); 
-  const { currentUser } = useAuth(); 
+  const [showAvatarUpload, setShowAvatarUpload] = useState(false);
+  const {auth} = useSelector(stat => stat);
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -28,7 +28,7 @@ const Navbar = () => {
             className='bg-blue- text-white  rounded-full transition duration-300'
             title="Upload Avatar"
           > 
-            {currentUser && <AvatarDisplay userId={currentUser.uid} />} 
+            {auth && <AvatarDisplay userId={18} />} 
           </button>
           <button
             onClick={() => setShowCreatePost(true)}
@@ -59,7 +59,7 @@ const Navbar = () => {
             className='bg-blue- text-white  rounded-full transition duration-300'
             title="Upload Avatar"
           > 
-            {currentUser && <AvatarDisplay userId={currentUser.uid} />} 
+            {auth && <AvatarDisplay userId={18} />} 
           </button>
           <Modal isOpen={showAvatarUpload} closeModal={() => setShowAvatarUpload(false)}>
             <AvatarUpload />

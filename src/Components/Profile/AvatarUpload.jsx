@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { storage, db } from '../../config/firebase';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { doc, updateDoc, setDoc, getDoc } from 'firebase/firestore';
-import { useAuth } from '../../contexts/AuthContext';
 import { AiOutlineCloudUpload, AiOutlineCheckCircle } from 'react-icons/ai';
+import { useSelector } from 'react-redux';
 
 const AvatarUpload = () => {
   const [file, setFile] = useState(null);
   const [message, setMessage] = useState('');
-  const { currentUser } = useAuth(); 
+  const {auth} = useSelector(state => state);
 
   const handleUploadStart = (event) => {
     setFile(event.target.files[0]);
@@ -19,16 +19,16 @@ const AvatarUpload = () => {
       setMessage('Please select an image.');
       return;
     }
-    if (!currentUser) {
+    if (!auth) {
       setMessage('You must be logged in to update your avatar.');
       return;
     }
 
-    const storageRef = ref(storage, `users/${currentUser.uid}/avatar`);
+    const storageRef = ref(storage, `users/${auth.uid}/avatar`);
     try {
       const snapshot = await uploadBytes(storageRef, file);
       const photoURL = await getDownloadURL(snapshot.ref);
-      const userRef = doc(db, 'users', currentUser.uid);
+      const userRef = doc(db, 'users', auth.uid);
       const docSnap = await getDoc(userRef);
 
       if (!docSnap.exists()) {

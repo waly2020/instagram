@@ -1,9 +1,11 @@
-import React from 'react';
 import Navbar from './Components/Common/Navbar';
 import PostList from './Components/Post/PostList';
-// import { auth } from './config/firebase';
+import { useSelector } from 'react-redux';
+
 
 const Home = () => {
+  const data = useSelector(state => state);
+  console.log(data);
   return (
     <div>
       <div className='min-h-screen bg-gradient-to-r from-green-400 via-yellow-500 to-blue-500 animate-gradient-x'>

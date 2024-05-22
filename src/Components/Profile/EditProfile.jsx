@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '../../contexts/AuthContext';
 import { db } from '../../config/firebase';
 import { doc, updateDoc, getDoc } from 'firebase/firestore';
 import { FaUserEdit, FaBiohazard } from 'react-icons/fa';
 import { MdUpdate } from 'react-icons/md';
+import { useSelector } from 'react-redux';
 
 const EditProfile = () => {
-    const { currentUser } = useAuth();
+    const {auth} = useSelector(state => state);
     const [username, setUsername] = useState('');
     const [bio, setBio] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
 
     useEffect(() => {
-        if (currentUser) {
+        if (auth) {
             const fetchUserProfile = async () => {
-                const docRef = doc(db, "users", currentUser.uid);
+                const docRef = doc(db, "users", auth.uid);
                 const docSnap = await getDoc(docRef);
                 if (docSnap.exists()) {
                     setUsername(docSnap.data().username);
@@ -26,7 +26,7 @@ const EditProfile = () => {
             };
             fetchUserProfile();
         }
-    }, [currentUser]);
+    }, [auth]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -34,14 +34,14 @@ const EditProfile = () => {
             setError("Please fill all the fields.");
             return;
         }
-        if (!currentUser) {
+        if (!auth) {
             setError("Please log in to update your profile.");
             return;
         }
         setError(''); // Clear any existing errors
         setLoading(true);
         try {
-            const userRef = doc(db, "users", currentUser.uid);
+            const userRef = doc(db, "users", auth.uid);
             await updateDoc(userRef, { username, bio });
             alert("Profile Updated Successfully");
         } catch (error) {

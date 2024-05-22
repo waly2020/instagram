@@ -1,22 +1,22 @@
 import React, { useState } from 'react';
 import { db } from '../../config/firebase';
 import { doc, updateDoc, arrayUnion, arrayRemove, deleteDoc, addDoc, collection } from 'firebase/firestore';
-import { useAuth } from '../../contexts/AuthContext';
 import { FaComments } from 'react-icons/fa';
 import AvatarDisplay from '../Profile/AvatarDisplay';
 import CommentPopup from '../Comments/CommentPopup'; 
 import { FaTrashAlt } from 'react-icons/fa';
+import { useSelector } from 'react-redux';
 
 const Post = ({ id, photoURL, caption, likedBy, userId, timestamp }) => {
     const [likes, setLikes] = useState(likedBy.length);
     const [isLiked, setIsLiked] = useState(false);
-    const { currentUser } = useAuth();
+    const {auth} = useSelector(state => state);
     const [error, setError] = useState('');
     const [comment, setComment] = useState('');
     const [showComments, setShowComments] = useState(false); 
 
     const toggleLike = async () => {
-        if (!currentUser) {
+        if (!auth) {
             setError("You must be logged in to like posts.");
             return;
         }
@@ -24,10 +24,10 @@ const Post = ({ id, photoURL, caption, likedBy, userId, timestamp }) => {
         const postRef = doc(db, "posts", id);
         try {
             if (isLiked) {
-                await updateDoc(postRef, { likedBy: arrayRemove(currentUser.uid) });
+                await updateDoc(postRef, { likedBy: arrayRemove(auth.uid) });
                 setLikes(prev => prev - 1);
             } else {
-                await updateDoc(postRef, { likedBy: arrayUnion(currentUser.uid) });
+                await updateDoc(postRef, { likedBy: arrayUnion(auth.uid) });
                 setLikes(prev => prev + 1);
             }
             setIsLiked(!isLiked);
@@ -38,7 +38,7 @@ const Post = ({ id, photoURL, caption, likedBy, userId, timestamp }) => {
     };
 
     const deletePost = async () => {
-        if (!currentUser || currentUser.uid !== userId) {
+        if (!auth || auth.uid !== userId) {
             setError("You must be logged in and be the post owner to delete posts.");
             return;
         }
@@ -55,7 +55,7 @@ const Post = ({ id, photoURL, caption, likedBy, userId, timestamp }) => {
 
     const handleCommentSubmit = async (e) => {
         e.preventDefault();
-        if (!currentUser) {
+        if (!auth) {
             setError("Please log in to comment.");
             return;
         }
@@ -67,7 +67,7 @@ const Post = ({ id, photoURL, caption, likedBy, userId, timestamp }) => {
             const postRef = doc(db, "posts", id);
             const commentData = {
                 text: comment,
-                userId: currentUser.uid,
+                userId: auth.uid,
                 timestamp: new Date(),
             };
             await addDoc(collection(postRef, "comments"), commentData);
@@ -86,10 +86,10 @@ const Post = ({ id, photoURL, caption, likedBy, userId, timestamp }) => {
                 <p>{caption}</p>
                 <p className="text-gray-500 text-sm mt-1">Posted at {timestamp.toDateString()} {timestamp.toLocaleTimeString()}</p>
                 <div className="flex items-center justify-between mt-2">
-                    <button onClick={toggleLike} disabled={!currentUser} className={`p-2 ${isLiked ? 'text-red-500' : 'text-gray-500'}`}>
+                    <button onClick={toggleLike} disabled={!auth} className={`p-2 ${isLiked ? 'text-red-500' : 'text-gray-500'}`}>
                         {isLiked ? '❤️' : '👍'} Like
                     </button>
-                    {currentUser && currentUser.uid === userId && (
+                    {auth && auth.uid === userId && (
                         <button onClick={deletePost} className="p-2 text-red-600 animate-bounce ease-in-out duration-300 relative">
                             <span className="text-1xl text-red-600" title="Delete Post"> 
                                 <FaTrashAlt className="text-red-600" />

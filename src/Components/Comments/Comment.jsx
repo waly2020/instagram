@@ -1,11 +1,11 @@
 import React from 'react';
 import { doc, deleteDoc } from 'firebase/firestore';
 import { db } from '../../config/firebase';
-import { useAuth } from '../../contexts/AuthContext';
 import {AiOutlineDelete} from 'react-icons/ai';
+import { useSelector } from 'react-redux';
 
 const Comment = ({ commentId, text, userId, postId }) => {
-    const { currentUser } = useAuth();
+    const {auth} = useSelector(state => state);
 
     const handleDelete = async () => {
         if (window.confirm("Are you sure you want to delete this comment?")) {
@@ -22,7 +22,7 @@ const Comment = ({ commentId, text, userId, postId }) => {
     return (
         <div className="p-2 border-b border-gray-300 flex justify-between items-center">
             <p>{text}</p>
-            {currentUser && currentUser.uid === userId && (
+            {auth && auth.uid === userId && (
                 <button onClick={handleDelete} className=" hover:text-red-700 text-blue-600 p-2 rounded-full">
                     <AiOutlineDelete className="inline-block "/> 
                 </button>
