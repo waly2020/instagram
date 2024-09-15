@@ -3,7 +3,7 @@ import { collection, query, getDocs } from 'firebase/firestore';
 import { db } from '../../config/firebase';
 import Comment from './Comment';
 
-const CommentList = ({ postId }) => {
+const AllComments = ({ postId }) => {
     const [comments, setComments] = useState([]);
 
     useEffect(() => {
@@ -14,23 +14,17 @@ const CommentList = ({ postId }) => {
                 id: doc.id,
                 ...doc.data()
             }));
-            setComments(commentsData);
+            setComments(commentsData.sort((a, b) => b.timestamp - a.timestamp).reverse());
         };
 
         fetchComments();
-    }, [postId]);
+    }, [postId,comments]);
 
     return (
-        <div>
-            {comments.length > 0 ? (
-                comments.map(comment => (
-                    <Comment key={comment.id} commentId={comment.id} text={comment.text} userId={comment.userId} postId={postId} />
-                ))
-            ) : (
-                <p>No comments...</p>
-            )}
-        </div>
+        comments.map(comment => (
+            <Comment key={comment.id} postId={postId} comment={comment} />
+        ))
     );
 };
 
-export default CommentList;
+export default AllComments;
