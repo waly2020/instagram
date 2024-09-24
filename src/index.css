@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-.remove-scroll::-webkit-scrollbar{
-    width: 0;
+.remove-scroll::-webkit-scrollbar {
+  width: 0;
+}
+
+body {
+  background-color: aquamarine;
 }
