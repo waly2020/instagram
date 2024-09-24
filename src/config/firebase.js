@@ -1,16 +1,16 @@
-import { initializeApp } from 'firebase/app';
-import { getFirestore } from 'firebase/firestore';
-import { getAuth } from 'firebase/auth';
-import { getStorage } from 'firebase/storage';
-import { setPersistence, browserSessionPersistence } from 'firebase/auth';
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
+import { getStorage } from "firebase/storage";
+import { setPersistence, browserSessionPersistence } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBRtEEsxQYH9gpYmuBpBNKTqxe9qAOClWk",
-  authDomain: "insta-app-b9842.firebaseapp.com",
-  projectId: "insta-app-b9842",
-  storageBucket: "insta-app-b9842.appspot.com",
-  messagingSenderId: "447812028569",
-  appId: "1:447812028569:web:338efbcf489421bbc1d008"
+  apiKey: "AIzaSyB6lGfWU1pOUdwIk0OuKM1CSnfic_t97y0",
+  authDomain: "instaprincipal-6f139.firebaseapp.com",
+  projectId: "instaprincipal-6f139",
+  storageBucket: "instaprincipal-6f139.appspot.com",
+  messagingSenderId: "611417317814",
+  appId: "1:611417317814:web:5fc2767b24c10005b5e117",
 };
 
 // Initialize Firebase
