@@ -9,8 +9,8 @@ const Home = () => {
           <h1 className="text-3xl font-semibold text-center mb-6">
             Latest Posts
           </h1>
-          <AllPosts />
         </section>
+        <AllPosts />
       </main>
     </Layout>
   );
